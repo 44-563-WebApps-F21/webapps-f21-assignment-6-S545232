@@ -1,53 +1,91 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>JavaScript Page</title>
-        <h1>Pass phrase by Anil Kumar Kolla</h1>
-    </head>
- 
-<body>
+  <head>
+    <title>Pass phrase check page</title>
+    <h2>Pass phrase by Anil Kumar Kolla</h2>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+  </head>
 
+  <body>
+    
+    <div class="container border bg-primary"></div>
+      <form>
+        <label for="form_one" class="col-sm-3">Enter the secret phrase </label>
+        <input type="password" class="col-sm-2" id="form_one" name="form_one" value="Let me in"> <br>
 
+        <label for="form_two" class="col-sm-3">Enter a phrase </label> 
+        <input type="text" class="col-sm-2" id="form_two" name="form_two" autofocus> <br>
 
-    <h2>Getting input</h2>
+        <input type="button" onclick="processPhrase()" value="Check the phrase">
+      </form>
+  </div>
 
-    <div class="container">
-        <form>
-            <label for="form1_age">Enter the secret phrase </label>
-            <input type="password" id="form1_age" name="form1_age" min=10 max=50 step=2 value="Let me in"> <br>
+  <div class="container border bg-info">
+      <p id="result">This text will be replaced </p>
+  </div>
 
-            <label for="form1_nick">Enter a phrase </label>
-            <input type="text" id="form1_nick" name="form1_nick" autofocus> <br>
+  <div class="container">
+      <img id="image" src="./Images/kangaroo.jpg" alt="kangaroo" height="200" width="200" onclick="newImage()">
+  </div>
 
-            <input type="button" onclick="processPhrase()" value="Check the phrase">
-        </form>
-    </div>
+  <script>
+         let usingImage = 1;
+      let correct = 0;
+      let wrong = 0;
+      var accLock = 0;
 
-    <div class="container">
-        <p id="result">This text will be replaced </p>
-    </div>
+      function processPhrase() {
+          console.log("Getting form values")
+          password = document.getElementById("form_one").value
+          guess = document.getElementById("form_two").value
 
-    <script>
-        let correct = 0;
-        let wrong = 0;
+          out = document.getElementById("result")
+          if (password == guess) {
+              accLock = 0
+              correct = correct + 1
+              out.innerHTML = "correct : " + correct + " " + "wrong : " + wrong
+              alert("Access allowed")
+          } else {
+              accLock = accLock + 1
+              wrong = wrong + 1
+              out.innerHTML = "correct : " + correct + " " + "wrong : " + wrong
+              alert("Access denied")
+              if(accLock>=3){
+                if(wrong >= 3){
+                   accLockPassPhrase()
+                }
+              }
+          }
+      }
 
-        function processPhrase() {
-            console.log("Getting form values")
-            password = document.getElementById("form1_age").value
-            guess = document.getElementById("form1_nick").value
-
-            out = document.getElementById("result")
-            if (password == guess) {
-                alert("Access allowed")
-                correct = correct + 1
-                out.innerHTML = "correct : " + correct + " " + "wrong : " + wrong
-            } else {
-                alert("Access denied")
-                wrong = wrong + 1
-                out.innerHTML = "correct : " + correct + " " + "wrong : " + wrong
-            }
-        }
-    </script>
-
-</body>
-</html> 
+      function accLockPassPhrase(){
+        alert("Account Locked")
+      }
+      function newImage() {
+          image = document.getElementById("image")
+          switch (using_image) {
+              case 1:
+                  image.src = "Images/kangaroo.jpg"
+                  using_image = 2
+                  break
+              case 2:
+                  image.src = "Images/lion.jpg"
+                  using_image = 3
+                  break
+              case 3:
+                  image.src = "Images/ostrich.jpg"
+                  using_image = 1
+                  break
+              default:
+                  break
+          }
+      }
+  </script>
+  </body>
+</html>
